@@ -11,8 +11,9 @@ if (process.env.NODE_ENV === 'test') {
 
 const envSchema = z.object({
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+    DATABASE_CLIENT: z.enum(['pg', 'mysql', 'sqlite3']).default('pg'),
     DATABASE_URL: z.string(),
-    PORT: z.number().default(3333)
+    PORT: z.coerce.number().default(3333)
 }) // This is a schema that describes the shape of the env vars
 
 const _env = envSchema.safeParse(process.env) // This will throw if the env vars are not valid
